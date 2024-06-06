@@ -27,6 +27,22 @@ See [Evaluation.md](EVALUATION.md)
 
 
 
+## Citation
+
+If you find our work helps, please consider cite the following work
+
+```
+@article{wang2024visincontext,
+        title={Leveraging Visual Tokens for Extended Text Contexts in Multi-Modal Learning},
+        author={Wang, Alex Jinpeng and Li, Linjie and Lin, Yiqi and Li, Min  and Wang, Lijuan and Shou, Mike Zheng},
+        journal={arXiv preprint arXiv:2406.02547},
+        year={2024}
+    }
+
+```
+
+
+
 ## Contact
 Email: awinyimgprocess at gmail dot com
 
