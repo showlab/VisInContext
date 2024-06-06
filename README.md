@@ -1,5 +1,10 @@
 # VisInContext
+
+![](figures/gpu_memory.png)
+
 - VisInContext is a easy way to increase the in-context text length in Multi-modality Learning.
+- This work is also complement with existing works to increase in-context text length like FlashAttn, Memory Transformer.
+
 
 
 ## Install
