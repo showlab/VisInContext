@@ -1,0 +1,23 @@
+setting:
+  add_time_stamp: True # if False, when restart, will know where to resume from (suitable for very long training)
+
+model_params:
+  lang_model:
+    name: "mistral-7b"
+    lang_model_path: "/tmp/azfuse/blob_dir/Mistral-7B-v0.1"
+    tokenizer_path: "/tmp/azfuse/blob_dir/Mistral-7B-v0.1"
+    dim: 512
+    num_tokens: 512
+    unimodal_depth: 16 # 32 layers in total
+    interval_layer: 4 # 4
+
+  multimodality_model:
+    cross_attention_compress_ratio: 4 # compress self-attention and feedforward layer in CrossAttention module
+
+
+training_params:
+  micro_batch_size: 96 # 128
+  learning_rate: 0.00015
+
+wandb_params:
+  wandb_run_name: "mistral_7b_h100"

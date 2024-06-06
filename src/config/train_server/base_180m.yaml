@@ -1,0 +1,213 @@
+setting:
+  output_dir: "/storage/v-jinpewang/experiments/ppt/"
+  src_dir: "./src"
+  resume_from_checkpoint: False
+  prompt_template_name: "ppt"
+  add_time_stamp: True # if False, when restart, will know where to resume from (suitable for very long training)
+
+
+# img_txt: cc3: 3M + cc12: 12M + sbu： 1M + laion: 7278(42m) + data_comp_1b: (60M) = 61M + 60M = 121M
+# inter_img_txt: mmc4_ff_wds: around 58.7M
+data_setting:
+  local_prefix: "/storage/v-jinpewang" # !!!!! will set to "" if use azfuse
+  train:
+    ocr_path: >
+
+    img_txt_path: >
+      /dataset/cc3m_wds_w_gen_caption/train/{00000..00300}.tar;
+      /dataset/sbu_wds_w_gen_caption/{000000000..000000900}.tar;
+      /dataset/cc12m_wds/images/{00000..01200}.tar;
+      /dataset/laion400m_wds_w_gen_caption/{00000..07000}.tar;
+      /dataset/data_comp_1b/shards/{00000000..00006500}.tar
+    inter_img_txt_path: >
+      /dataset/mmc4_ff_wds_w_gen/chunk0/{000000000..000001006}.tar;
+      /dataset/mmc4_ff_wds_w_gen/chunk1/{000000000..000000117}.tar;
+      /dataset/mmc4_ff_wds_w_gen/chunk2/{000000000..000000993}.tar;
+      /dataset/mmc4_ff_wds_w_gen/chunk3/{000000000..000000816}.tar;
+      /dataset/mmc4_ff_wds_w_gen/chunk4/{000000000..000000159}.tar;
+      /dataset/mmc4_ff_wds_w_gen/chunk5/{000000000..000000388}.tar;
+      /dataset/mmc4_ff_wds_w_gen/chunk6/{000000000..000000128}.tar;
+      /dataset/mmc4_ff_wds_w_gen/chunk7/{000000000..000001201}.tar;
+      /dataset/mmc4_ff_wds_w_gen/chunk8/{000000000..000001177}.tar;
+      /dataset/mmc4_ff_wds_w_gen/chunk9/{000000000..000001027}.tar;
+      /dataset/mmc4_ff_wds_w_gen/chunk10/{000000000..000001061}.tar;
+      /dataset/mmc4_ff_wds_w_gen/chunk11/{000000000..000001955}.tar;
+      /dataset/mmc4_ff_wds_w_gen/chunk12/{000000000..000001933}.tar;
+      /dataset/mmc4_ff_wds_w_gen/chunk13/{000000000..000000701}.tar;
+      /dataset/obelics_wds_w_sentence_score/chunk0/{000000000..000000750}.tar;
+      /dataset/obelics_wds_w_sentence_score/chunk1/{000000000..000000600}.tar;
+      /dataset/obelics_wds_w_sentence_score/chunk2/{000000000..000000500}.tar;
+      /dataset/obelics_wds_w_sentence_score/chunk3/{000000000..000000500}.tar;
+      /dataset/obelics_wds_w_sentence_score/chunk4/{000000000..000000500}.tar;
+      /dataset/obelics_wds_w_sentence_score/chunk5/{000000000..000000500}.tar;
+      /dataset/obelics_wds_w_sentence_score/chunk6/{000000000..000000700}.tar
+    vid_txt_path: >
+      
+    inter_vid_txt_wds_path: >
+
+    inter_vid_txt_tsv_path: >
+
+    instr_path: >
+
+  eval:
+    ocr_path: >
+
+    img_txt_path: >
+      /dataset/cc3m_wds_w_gen_caption/train/{00301..00331}.tar;
+      /dataset/sbu_wds_w_gen_caption/{000000926..000000999}.tar;
+      /dataset/coco2014_wds_w_gen_caption/{000000612..000000680}.tar;
+      /dataset/vg_wds_w_gen_caption/{000000900..000000922}.tar;
+      /dataset/cc12m_wds/images/{01200..01242}.tar;
+      /dataset/laion400m_wds_w_gen_caption/{07200..07280}.tar;
+      /dataset/data_comp_1b/shards/{00016888..00016910}.tar
+    inter_img_txt_path: >
+      /dataset/mmc4_ff_wds/chunk0/{000005000..000005008}.tar;
+      /dataset/mmc4_ff_wds/chunk1/{000005110..000005119}.tar;
+      /dataset/mmc4_ff_wds/chunk2/{000002980..000002994}.tar;
+      /dataset/mmc4_ff_wds/chunk3/{000002800..000002818}.tar;
+      /dataset/mmc4_ff_wds/chunk4/{000002150..000002161}.tar;
+      /dataset/mmc4_ff_wds/chunk5/{000002369..000002390}.tar;
+      /dataset/mmc4_ff_wds/chunk6/{000005109..000005130}.tar;
+      /dataset/mmc4_ff_wds/chunk7/{000005182..000005203}.tar;
+      /dataset/mmc4_ff_wds/chunk8/{000005158..000005179}.tar;
+      /dataset/mmc4_ff_wds/chunk9/{000005008..000005029}.tar;
+      /dataset/mmc4_ff_wds/chunk10/{000005042..000005063}.tar;
+      /dataset/mmc4_ff_wds/chunk11/{000004936..000004957}.tar;
+      /dataset/mmc4_ff_wds/chunk12/{000004914..000004935}.tar;
+      /dataset/mmc4_ff_wds/chunk13/{000002682..000002703}.tar
+    inter_vid_txt_wds_path: >
+
+    inter_vid_txt_tsv_path: >
+
+    instr_path: >
+    
+dataset_params:
+  sampling_strategy: "min" # round_robin, min, max, 
+  split_data_by_node: True # !!!!!
+  use_azfuse: False
+  upload_model_to_blob: True # !!!!!
+  ocr:
+    use_ocr: False
+    MAX_NUM_TOKENS: 128  # max length of text token, 256 in flamingo (with larger memory)
+    tar_pre_cache: True # if true, download all tar files to local disk before training. Otherwise, download tar files on the fly
+    pre_cache_ratio: 1.0 # if tar_pre_cache is True, only download 10% of tar files
+  img_txt:
+    use_img_txt: True
+    clean_data_use_strategy: "noisy_only" # clean_only, clean_first, clean_last, clean_random, noisy_only, mixed: 50% clean, 50% noisy    
+    tar_pre_cache: True # if true, download all tar files to local disk before training. Otherwise, download tar files on the fly
+    pre_cache_ratio: 0.35 # if tar_pre_cache is True, only download 10% of tar files
+  inter_img_txt:
+    use_inter_img_txt: True
+    MIN_KB: 10 # reject image smaller than 10KB
+    MAX_IMAGE_PIXELS: 1000000000
+    MAX_NUM_TOKENS_MMC4: 128  # max length of text token, 256 in flamingo (with larger memory)
+    MAX_NUM_TOKENS_CC3M: 128  # max length of text token, 256 in flamingo (with larger memory)
+    MAX_NUM_TOKENS_OBELICS: 128  # max length of text token, 256 in flamingo (with larger memory)
+    MAX_NUM_IMAGES_MMC4: 3  # images num in each interlevel image_text pairs, 5 in flamingo
+    MAX_NUM_IMAGES_CC3M: 3
+    MAX_NUM_IMAGES_OBELICS: 3  # 50%+ obelics only have 1 images
+    SIM_THRESHOLD_MMC4: 0.25
+    SIM_THRESHOLD_OBELICS: 0.25
+    TINY_IMAGE_SIZE_THRESHOLD: 1
+    N_CHANNELS: 3
+    INTERLEAVED_IMAGE_SIZE: 224
+    clean_data_use_strategy: "noisy_only" # clean_only, clean_first, clean_last, clean_random, noisy_only, mixed: 50% clean, 50% noisy
+    # "low_simlarity"
+    balanced_sampling: False # If true, sample K images and K texts possibly, for obelics
+    interlevel_text_coherence: False # If True, sample MAX_NUM_TOKENS token from adjacent text; If False, sample K images and their matched text
+    tar_pre_cache: False # if true, download all tar files to local disk before training. Otherwise, download tar files on the fly
+    pre_cache_ratio: 0.35 # if tar_pre_cache is True, only download 10% of tar files
+  vid_txt:
+    use_vid_txt: False
+    VIDEO_IMAGE_SIZE: 224
+    VIDEO_FRAMES: 3
+    MAX_SAMPLES: 100 # 500000, use 0.5M video-text pair at most, -1 for use all dataset
+    clean_data_use_strategy: "noisy_only" # clean_only, clean_first, clean_last, clean_random, noisy_only, mixed: 50% clean, 50% noisy
+    MAX_SAMPLES: -1 # 500000, use 0.5M video-text pair at most, -1 for use all dataset
+    tar_pre_cache: False # if true, download all tar files to local disk before training. Otherwise, download tar files on the fly
+    read_mode: "tsv" # tsv, wds  # <----------------!!!!!!! Modfify this line!!!!!!!!!---------------->  
+    pre_cache_ratio: 0.35 # if tar_pre_cache is True, only download 10% of tar files
+  inter_vid_txt:
+    use_inter_vid_txt: False
+    VIDEO_IMAGE_SIZE: 224
+    VIDEO_SAMPLED_CLIPS: 2
+    MAX_SAMPLES: -1 # 500000, use 0.5M video-text pair at most, -1 for use all dataset
+    VIDEO_FRAMES: 3
+    read_mode: "tsv" # tsv, wds  tsv downloaded from blob cache
+    clean_data_use_strategy: "noisy_only" # clean_only, clean_first, clean_last, clean_random, noisy_only, mixed: 50% clean, 50% noisy
+    tar_pre_cache: False # if true, download all tar files to local disk before training. Otherwise, download tar files on the fly
+    pre_cache_ratio: 0.5 # if tar_pre_cache is True, only download 10% of tar files
+    MAX_NUM_TOKENS: 128  # max length of text token, 256 in flamingo (with larger memory)
+    
+model_params:
+  vision_encoder:
+    vision_encoder_name: "clip" # clip/sam/sparseformer
+    vision_encoder_arch: "ViT-L-14"
+    tuning: False
+    vision_encoder_pretrained: "openai"
+    ckpt_path: ""
+    cache_dir: "/storage/v-jinpewang/pretrained_models"
+    custom_augment: True # custom augmentation is much stronger than the default one
+  lang_model:
+    name: "opt-iml-max-1.3b"
+    lang_model_path: "/storage/v-jinpewang/pretrained_models/opt-iml-max-1.3b"
+    tokenizer_path: "/storage/v-jinpewang/pretrained_models/opt-iml-max-1.3b"
+    dim: 512
+    num_tokens: 512
+    unimodal_depth: 12
+    interval_layer: 2
+    use_memory_layer: False # if True, add 1 memory layer after unimodal layer, but require faiss library
+
+  multimodality_model:
+    latent_dim: 512 # latent space for contrastive learning
+    use_contrastive_loss: True
+    contrastive_temperature: 0.2
+    contrastive_loss_weight: 1.0
+    contrastive_gather_way: "single_gpu" # "single_node", "all_nodes", "single_gpu"
+    cross_attention_compress_ratio: 2 # compress self-attention and feedforward layer in CrossAttention module
+    only_attend_immediate_media: True # if True, only attend to immediate media in CrossAttention module
+    qv_norm: False # if True, normalize q and v in CrossAttention module
+    # set to False for obelics
+
+training_params:
+  float_type: "fp16" # fp16, fp32, bf16
+  optim: "adamw_hf" # replace by deepspeed config file
+  micro_batch_size: 96
+  workers: 4 # N * 8 (N is data type, e.g. img, vid, interlevel, 5 at most)
+  num_epochs: 20
+  lr_scheduler_type: "cosine"
+  learning_rate: 0.0003
+  cutoff_len: 256
+  warmup_steps: 1000
+  warmup_ratio: 0.03
+  logging_steps: 200 # do not set it too small, otherwise it will slow down the training (due to the overhead of logging)
+  save_steps: 5000
+  save_total_limit: 3
+  # the following for validation
+  eval_steps: 1000
+  eval: True # if evaluate
+  max_eval_batches: 1000
+  data_weights:
+    img_txt: 1
+    vid_txt: 1
+    inter_img_txt: 1
+    inter_vid_txt: 1
+  exception_handling: False # if True, the training will not stop when exception occurs
+  ignore_data_skip: True # if False, when resume from checkpoint, need to iteration all dataloader until reach the last iteration (exception)
+  data_resampling: False # when use tsv, will set to True auto
+  custom_dist_init_group_timeout: 6000 # 6000s = 100min
+
+lora_params:
+  lora: False
+  lora_r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+  lora_target_modules: ["q_proj", "v_proj"]
+
+wandb_params:
+  wandb: True # True for use, False for not use
+  wandb_project: "ppt_wo_ocr"
+  wandb_run_name: "180m-baseline-opt-iml-1.3b"
+  wandb_watch: "all"
+  wandb_log_model: ""
+  wandb_dir: "/storage/v-jinpewang/experiments/ppt/wandb_logs/"

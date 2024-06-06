@@ -1,0 +1,36 @@
+torch==2.1.2
+einops
+einops-exts
+transformers
+tokenizers
+# pillow==9.4.0
+more-itertools
+datasets
+braceexpand
+webdataset
+wandb
+nltk
+scipy
+inflection
+sentencepiece==0.1.98
+pycocoevalcap
+pycocotools
+open_clip_torch>=2.16.0
+pytorchvideo
+GPUtil
+psutil
+decord
+colorama
+ipdb
+scikit-learn
+ffmpeg-python
+spacy==3.7.2
+# faiss
+# peft # be careful, this will uninstall pytroch1.11 and install 2.0
+clip_benchmark
+wilds
+imageio
+opencv-python
+bitsandbytes # for load model with 4bits
+deepspeed==0.9.3
+accelerate

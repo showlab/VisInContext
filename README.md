@@ -3,7 +3,17 @@
 
 
 ## Install
-See [INSTALL.md](INSTALL.md).
+
+```
+pip install -r requirement.txt
+```
+
+For H100 GPUS, run the following dependencies:
+
+```
+pip install -r requirements_h100.txt
+```
+
 
 ## Dataset Preparation
 See [DATASET.md](DATASET.md).
