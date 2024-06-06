@@ -1,5 +1,5 @@
 setting:
-  output_dir: "/storage/v-jinpewang/experiments/ppt/"
+  output_dir: "/experiments/ppt/"
   src_dir: "./src"
   resume_from_checkpoint: False
   prompt_template_name: "ppt"
@@ -9,7 +9,7 @@ setting:
 # img_txt: cc3: 3M + cc12: 12M + sbu： 1M + laion: 7278(42m) + data_comp_1b: (60M) = 61M + 60M = 121M
 # inter_img_txt: mmc4_ff_wds: around 58.7M
 data_setting:
-  local_prefix: "/storage/v-jinpewang" # !!!!! will set to "" if use azfuse
+  local_prefix: "" # !!!!! will set to "" if use azfuse
   train:
     ocr_path: >
       /dataset/RenderedText/{000000..007000}.tar
@@ -146,12 +146,12 @@ model_params:
     tuning: False
     vision_encoder_pretrained: "openai"
     ckpt_path: ""
-    cache_dir: "/storage/v-jinpewang/pretrained_models"
+    cache_dir: "/pretrained_models"
     custom_augment: True # custom augmentation is much stronger than the default one
   lang_model:
     name: "opt-iml-max-1.3b"
-    lang_model_path: "/storage/v-jinpewang/pretrained_models/opt-iml-max-1.3b"
-    tokenizer_path: "/storage/v-jinpewang/pretrained_models/opt-iml-max-1.3b"
+    lang_model_path: "/pretrained_models/opt-iml-max-1.3b"
+    tokenizer_path: "/pretrained_models/opt-iml-max-1.3b"
     dim: 512
     num_tokens: 512
     unimodal_depth: 12
@@ -210,4 +210,4 @@ wandb_params:
   wandb_run_name: "180m-baseline-opt-iml-1.3b"
   wandb_watch: "all"
   wandb_log_model: ""
-  wandb_dir: "/storage/v-jinpewang/experiments/ppt/wandb_logs/"
+  wandb_dir: "/experiments/ppt/wandb_logs/"

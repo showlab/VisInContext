@@ -1,12 +1,12 @@
 setting:
-  output_dir: "/home/jinpeng/blob/vigstandard_data/v-jinpewang/experiments/VideoGPT4" # experiments/VideoGPT4/
+  output_dir: "/experiments/VideoGPT4" # experiments/VideoGPT4/
   src_dir: "./src"
   add_time_stamp: True
   resume_from_checkpoint: True
   prompt_template_name: "videogpt4"
 
 data_setting:
-  local_prefix: "/home/jinpeng/blob/vigstandard_data/v-jinpewang"
+  local_prefix: ""
   train:
     img_txt_path: >
       /dataset/laion400m_wds_w_gen_caption/{00000..00001}.tar;
