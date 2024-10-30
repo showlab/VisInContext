@@ -1,5 +1,6 @@
 # VisInContext
 
+[Arxiv](https://arxiv.org/abs/2406.02547)
 ![](figures/gpu_memory.png)
 
 - VisInContext is a easy way to increase the in-context text length in Multi-modality Learning.
@@ -40,7 +41,7 @@ If you find our work helps, please consider cite the following work
 @article{wang2024visincontext,
         title={Leveraging Visual Tokens for Extended Text Contexts in Multi-Modal Learning},
         author={Wang, Alex Jinpeng and Li, Linjie and Lin, Yiqi and Li, Min  and Wang, Lijuan and Shou, Mike Zheng},
-        journal={arXiv preprint arXiv:2406.02547},
+        journal={NeurIPS},
         year={2024}
     }
 
